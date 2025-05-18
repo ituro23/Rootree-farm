@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RootreeFarm | Connect Farmers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #2d6a4f;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav a {
+      margin: 0 0.75rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        ),
+        url("image/rootree.png.jfif") center/cover;
+      padding: 6rem 2rem;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      background-image: url("image/tomato.jfif");
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 250px;
+      max-width: 300px;
+    }
+
+    .media-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .media-gallery img,
+    .media-gallery video {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background-color: #1b4332;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    form input,
+    form select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      padding: 0.75rem 2rem;
+      border: none;
+      background-color: #2d6a4f;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .form-container {
+      display: none;
+      background: white;
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle {
+      text-align: center;
+      color: #2a6f3a;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .message {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .success {
+      color: rgba(7, 117, 7, 0.349);
+    }
+    .error {
+      color: rgb(77, 6, 6);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>RootreeFarm</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Crops</a>
+      <a href="#contact">Contact</a>
+      <a onclick="showBookingForm()">Booking</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Connecting Farmers & Workers</h2>
+    <p>Find trusted partners, share services, grow together — to serve is our priority.</p>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="container">
+    <h2>About RootreeFarm</h2>
+    <p>We are a platform that connects farmers, agricultural workers, and buyers.</p>
+  </section>
+
+  <!-- Crops -->
+  <section id="services" class="container">
+    <h2>Available Crops</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Tomatoes</h3>
+        <p>Fresh, organic, and locally grown.</p>
+      </div>
+      <div class="card">
+        <h3>Onions</h3>
+        <p>Onions perfect for local markets.</p>
+      </div>
+      <div class="card">
+        <h3>Spinach</h3>
+        <p>Nutritious green spinach harvested weekly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login & Register Form -->
+  <div class="form-container" id="bookingForm">
+    <h2 id="formTitle">Login to Book</h2>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="button" onclick="login()">Login & Book</button>
+      <div id="loginMsg" class="message"></div>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" style="display: none;">
+      <input type="text" id="regUsername" placeholder="Username" required />
+      <input type="email" id="regEmail" placeholder="Email" required />
+      <input type="password" id="regPassword" placeholder="Password" required />
+
+      <select id="userType" required>
+        <option value="">Select Role</option>
+        <option>Buyer</option>
+        <option>Seller</option>
+        <option>Farmer</option>
+      </select>
+
+      <input type="date" id="regBookingDate" required />
+      <input type="time" id="regBookingTime" required />
+
+      <select id="regDistrict" required>
+        <option value="">Select District</option>
+        <option>KICUKIRO</option>
+        <option>GASABO</option>
+        <option>NYARUGENGE</option>
+        <option>BURERA</option>
+        <option>GAKENKE</option>
+        <option>GICUMBI</option>
+        <option>MUSANZE</option>
+        <option>RULINDO</option>
+        <option>GISAGARA</option>
+        <option>HUYE</option>
+        <option>KAMONYI</option>
+        <option>MUHANGA</option>
+        <option>RUHANGO</option>
+        <option>NYAMAGABE</option>
+        <option>NYANZA</option>
+        <option>NYARUGURU</option>
+        <option>BUGESERA</option>
+        <option>GATSIBO</option>
+        <option>KAYONZA</option>
+        <option>KIREHE</option>
+        <option>NGOMA</option>
+        <option>NYAGATARE</option>
+        <option>RWAMAGANA</option>
+        <option>KARONGI</option>
+        <option>NGORORERO</option>
+        <option>NYABIHU</option>
+        <option>NYAMASHEKE</option>
+        <option>RUBAVU</option>
+        <option>RUSIZI</option>
+        <option>RUTSIRO</option>
+      </select>
+
+      <select id="marketType" required>
+        <option value="">Select Market Type</option>
+        <option>Vegetable Stall</option>
+        <option>Fruit Stall</option>
+        <option>Livestock Pen</option>
+      </select>
+
+      <button type="button" onclick="register()"> Register & Book</button>
+      <div id="registerMsg" class="message"></div>
+    </form>
+
+    <div class="toggle" onclick="toggleForm()">
+      Don't have an account? <br />Register here</br>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 RootreeFarm. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showBookingForm() {
+      document.getElementById("bookingForm").style.display = "block";
+      window.scrollTo(0, document.getElementById("bookingForm").offsetTop);
+    }
+
+    function toggleForm() {
+      const isLogin = document.getElementById("loginForm").style.display !== "none";
+      document.getElementById("loginForm").style.display = isLogin ? "none" : "block";
+      document.getElementById("registerForm").style.display = isLogin ? "block" : "none";
+      document.getElementById("formTitle").innerText = isLogin ? "Register to Book" : "Login to Book";
+      document.querySelector(".toggle").innerText = isLogin
+        ? "Already have an account? Login here"
+        : "Don't have an account? Register here";
+      clearMessages();
+    }
+
+    function login() {
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+      const msg = document.getElementById("loginMsg");
+
+      if (username === "vendor" && password === "market123") {
+        msg.innerText = "Login successful!";
+        msg.className = "message success";
+      } else {
+        msg.innerText = "Login failed.";
+        msg.className = "message error";
+      }
+    }
+
+    function register() {
+      const username = document.getElementById("regUsername").value;
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      const userType = document.getElementById("userType").value;
+      const bookingDate = document.getElementById("regBookingDate").value;
+      const bookingTime = document.getElementById("regBookingTime").value;
+      const district = document.getElementById("regDistrict").value;
+      const marketType = document.getElementById("marketType").value;
+
+      const msg = document.getElementById("registerMsg");
+
+      if (
+        username &&
+        email &&
+        password &&
+        userType &&
+        bookingDate &&
+        bookingTime &&
+        district &&
+        marketType
+      ) {
+        msg.innerText = `Registered as ${userType}. Booking on ${bookingDate} at ${bookingTime} confirmed.`;
+        msg.className = "message success";
+      } else {
+        msg.innerText = "Please fill out all fields.";
+        msg.className = "message error";
+      }
+    }
+
+    function clearMessages() {
+      document.getElementById("loginMsg").innerText = "";
+      document.getElementById("registerMsg").innerText = "";
+    }
+  </script>
+</body>
+</html>s
